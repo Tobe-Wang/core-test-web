@@ -90,6 +90,10 @@ public class RestfulController {
      */
     @DeleteMapping(value = "/{id}")
     public Integer deleteById(@PathVariable Integer id) {
-        return 1;
+        if (ObjectUtil.exists(id)) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }
