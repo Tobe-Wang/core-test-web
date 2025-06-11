@@ -1,3 +1,7 @@
+/*
+ * Copyright (c) 2025. Tobe Wang
+ */
+
 package cn.zhaofd.coretestweb;
 
 import org.springframework.boot.SpringApplication;
