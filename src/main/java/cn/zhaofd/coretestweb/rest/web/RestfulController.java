@@ -26,7 +26,7 @@ public class RestfulController {
     public Customer getById(@PathVariable Integer id) {
         Customer customer = new Customer();
         customer.setId(id);
-        customer.setFirstName("zhao");
+        customer.setFirstName("zhao王");
         customer.setLastName("fang dong");
         return customer;
     }
@@ -51,7 +51,7 @@ public class RestfulController {
         list.add(customer1);
         Customer customer2 = new Customer();
         customer2.setId(2);
-        customer2.setFirstName("zhao");
+        customer2.setFirstName("zhao王");
         customer2.setLastName("fang dong");
         list.add(customer2);
 
@@ -66,7 +66,19 @@ public class RestfulController {
      */
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Customer postEntity(@RequestBody Customer customer) {
-        customer.setFirstName("保存成功");
+        customer.setFirstName("保存json成功");
+        return customer;
+    }
+
+    /**
+     * 保存对象
+     *
+     * @param customer 保存对象
+     * @return 保存后对象
+     */
+    @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Customer postForm(@ModelAttribute Customer customer) {
+        customer.setFirstName("保存form成功");
         return customer;
     }
 
@@ -78,7 +90,19 @@ public class RestfulController {
      */
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Customer putEntity(@RequestBody Customer customer) {
-        customer.setFirstName("修改成功");
+        customer.setFirstName("修改json成功");
+        return customer;
+    }
+
+    /**
+     * 修改对象
+     *
+     * @param customer 修改对象
+     * @return 修改后对象
+     */
+    @PutMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Customer putForm(@ModelAttribute Customer customer) {
+        customer.setFirstName("修改form成功");
         return customer;
     }
 
