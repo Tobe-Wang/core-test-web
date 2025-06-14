@@ -5,7 +5,10 @@
 package cn.zhaofd.coretestweb.rest.web;
 
 import cn.zhaofd.core.base.ObjectUtil;
+import cn.zhaofd.core.base.StringUtil;
+import cn.zhaofd.coretestweb.core.exception.HttpException;
 import cn.zhaofd.coretestweb.rest.dto.Customer;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +27,11 @@ public class RestfulController {
      */
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Customer getById(@PathVariable Integer id) {
+        // 输入参数验证
+        if (!ObjectUtil.exists(id)) {
+            throw new HttpException(HttpStatus.BAD_REQUEST.value(), "参数id不能为空");
+        }
+
         Customer customer = new Customer();
         customer.setId(id);
         customer.setFirstName("zhao王");
@@ -42,6 +50,11 @@ public class RestfulController {
         Integer id = ObjectUtil.convert(params.get("id"), Integer.class);
         String firstName = ObjectUtil.convert(params.get("firstName"), String.class);
         String lastName = ObjectUtil.convert(params.get("lastName"), String.class);
+
+        // 输入参数验证
+        if (!ObjectUtil.exists(id) || StringUtil.isNullOrTrimEmpty(firstName) || StringUtil.isNullOrTrimEmpty(lastName)) {
+            throw new HttpException(HttpStatus.BAD_REQUEST.value(), "接口参数不能为空");
+        }
 
         List<Customer> list = new ArrayList<>();
         Customer customer1 = new Customer();
@@ -65,7 +78,13 @@ public class RestfulController {
      * @return 保存后对象
      */
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
     public Customer postEntity(@RequestBody Customer customer) {
+        // 输入参数验证
+        if (customer == null) {
+            throw new HttpException(HttpStatus.BAD_REQUEST.value(), "接口参数不能为空");
+        }
+
         customer.setFirstName("保存json成功");
         return customer;
     }
@@ -77,7 +96,13 @@ public class RestfulController {
      * @return 保存后对象
      */
     @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.CREATED)
     public Customer postForm(@ModelAttribute Customer customer) {
+        // 输入参数验证
+        if (customer == null) {
+            throw new HttpException(HttpStatus.BAD_REQUEST.value(), "接口参数不能为空");
+        }
+
         customer.setFirstName("保存form成功");
         return customer;
     }
@@ -90,6 +115,11 @@ public class RestfulController {
      */
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Customer putEntity(@RequestBody Customer customer) {
+        // 输入参数验证
+        if (customer == null) {
+            throw new HttpException(HttpStatus.BAD_REQUEST.value(), "接口参数不能为空");
+        }
+
         customer.setFirstName("修改json成功");
         return customer;
     }
@@ -102,6 +132,11 @@ public class RestfulController {
      */
     @PutMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Customer putForm(@ModelAttribute Customer customer) {
+        // 输入参数验证
+        if (customer == null) {
+            throw new HttpException(HttpStatus.BAD_REQUEST.value(), "接口参数不能为空");
+        }
+
         customer.setFirstName("修改form成功");
         return customer;
     }
@@ -114,10 +149,11 @@ public class RestfulController {
      */
     @DeleteMapping(value = "/{id}")
     public Integer deleteById(@PathVariable Integer id) {
-        if (ObjectUtil.exists(id)) {
-            return 1;
-        } else {
-            return 0;
+        // 输入参数验证
+        if (!ObjectUtil.exists(id)) {
+            throw new HttpException(HttpStatus.BAD_REQUEST.value(), "参数id不能为空");
         }
+
+        return 1;
     }
 }
