@@ -4,7 +4,12 @@
 
 package cn.zhaofd.coretestweb.rest.dto;
 
-public class Customer {
+import java.io.Serial;
+import java.io.Serializable;
+
+public class Customer implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
     private Integer id;
     private String firstName;
     private String lastName;

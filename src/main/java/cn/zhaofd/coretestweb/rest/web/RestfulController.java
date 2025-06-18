@@ -11,6 +11,7 @@ import cn.zhaofd.coretestweb.rest.dto.Customer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -105,6 +106,22 @@ public class RestfulController {
 
         customer.setFirstName("保存form成功");
         return customer;
+    }
+
+    /**
+     * 上传文件
+     *
+     * @param file 文件
+     * @return 状态码
+     */
+    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    public String upload(@RequestParam MultipartFile file) {
+        // 输入参数验证
+        if (file == null) {
+            throw new HttpException(HttpStatus.BAD_REQUEST.value(), "文件为空");
+        }
+
+        return "1";
     }
 
     /**
