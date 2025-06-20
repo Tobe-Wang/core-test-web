@@ -7,9 +7,12 @@ package cn.zhaofd.coretestweb.rest.web;
 import cn.zhaofd.core.base.ObjectUtil;
 import cn.zhaofd.core.base.StringUtil;
 import cn.zhaofd.coretestweb.core.exception.HttpException;
+import cn.zhaofd.coretestweb.core.util.ValidationUtil;
 import cn.zhaofd.coretestweb.rest.dto.Customer;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -76,14 +79,18 @@ public class RestfulController {
      * 保存对象
      *
      * @param customer 保存对象
+     * @param errors   Errors对象
      * @return 保存后对象
      */
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public Customer postEntity(@RequestBody Customer customer) {
+    public Customer postEntity(@Valid @RequestBody Customer customer, Errors errors) {
         // 输入参数验证
         if (customer == null) {
             throw new HttpException(HttpStatus.BAD_REQUEST.value(), "接口参数不能为空");
+        }
+        if (errors.hasErrors()) {
+            throw new HttpException(HttpStatus.BAD_REQUEST.value(), ValidationUtil.getFieldErrorMsg(errors));
         }
 
         customer.setFirstName("保存json成功");
@@ -94,14 +101,18 @@ public class RestfulController {
      * 保存对象
      *
      * @param customer 保存对象
+     * @param errors   Errors对象
      * @return 保存后对象
      */
     @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public Customer postForm(@ModelAttribute Customer customer) {
+    public Customer postForm(@Valid @ModelAttribute Customer customer, Errors errors) {
         // 输入参数验证
         if (customer == null) {
             throw new HttpException(HttpStatus.BAD_REQUEST.value(), "接口参数不能为空");
+        }
+        if (errors.hasErrors()) {
+            throw new HttpException(HttpStatus.BAD_REQUEST.value(), ValidationUtil.getFieldErrorMsg(errors));
         }
 
         customer.setFirstName("保存form成功");
@@ -128,13 +139,17 @@ public class RestfulController {
      * 修改对象
      *
      * @param customer 修改对象
+     * @param errors   Errors对象
      * @return 修改后对象
      */
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Customer putEntity(@RequestBody Customer customer) {
+    public Customer putEntity(@Valid @RequestBody Customer customer, Errors errors) {
         // 输入参数验证
         if (customer == null) {
             throw new HttpException(HttpStatus.BAD_REQUEST.value(), "接口参数不能为空");
+        }
+        if (errors.hasErrors()) {
+            throw new HttpException(HttpStatus.BAD_REQUEST.value(), ValidationUtil.getFieldErrorMsg(errors));
         }
 
         customer.setFirstName("修改json成功");
@@ -145,13 +160,17 @@ public class RestfulController {
      * 修改对象
      *
      * @param customer 修改对象
+     * @param errors   Errors对象
      * @return 修改后对象
      */
     @PutMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Customer putForm(@ModelAttribute Customer customer) {
+    public Customer putForm(@Valid @ModelAttribute Customer customer, Errors errors) {
         // 输入参数验证
         if (customer == null) {
             throw new HttpException(HttpStatus.BAD_REQUEST.value(), "接口参数不能为空");
+        }
+        if (errors.hasErrors()) {
+            throw new HttpException(HttpStatus.BAD_REQUEST.value(), ValidationUtil.getFieldErrorMsg(errors));
         }
 
         customer.setFirstName("修改form成功");
