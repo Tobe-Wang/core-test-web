@@ -10,6 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+/**
+ * 全局Controller异常处理
+ */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     /**
