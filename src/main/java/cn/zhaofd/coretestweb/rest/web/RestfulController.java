@@ -6,8 +6,8 @@ package cn.zhaofd.coretestweb.rest.web;
 
 import cn.zhaofd.core.base.ObjectUtil;
 import cn.zhaofd.core.base.StringUtil;
+import cn.zhaofd.core.spring.validation.ValidationUtil;
 import cn.zhaofd.coretestweb.core.exception.HttpException;
-import cn.zhaofd.coretestweb.core.util.ValidationUtil;
 import cn.zhaofd.coretestweb.rest.dto.Customer;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
