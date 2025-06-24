@@ -5,7 +5,7 @@
 package cn.zhaofd.coretestweb.rest.web;
 
 import cn.zhaofd.core.base.ObjectUtil;
-import cn.zhaofd.core.base.StringUtil;
+import cn.zhaofd.core.json.JacksonUtil;
 import cn.zhaofd.core.spring.validation.ValidationUtil;
 import cn.zhaofd.coretestweb.core.exception.HttpException;
 import cn.zhaofd.coretestweb.rest.dto.Customer;
@@ -16,6 +16,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -55,17 +56,14 @@ public class RestfulController {
         String firstName = ObjectUtil.convert(params.get("firstName"), String.class);
         String lastName = ObjectUtil.convert(params.get("lastName"), String.class);
 
-        // 输入参数验证
-        if (!ObjectUtil.exists(id) || StringUtil.isNullOrTrimEmpty(firstName) || StringUtil.isNullOrTrimEmpty(lastName)) {
-            throw new HttpException(HttpStatus.BAD_REQUEST.value(), "接口参数不能为空");
-        }
-
         List<Customer> list = new ArrayList<>();
-        Customer customer1 = new Customer();
-        customer1.setId(id);
-        customer1.setFirstName(firstName);
-        customer1.setLastName(lastName);
-        list.add(customer1);
+        if (ObjectUtil.exists(id)) {
+            Customer customer1 = new Customer();
+            customer1.setId(id);
+            customer1.setFirstName(firstName);
+            customer1.setLastName(lastName);
+            list.add(customer1);
+        }
         Customer customer2 = new Customer();
         customer2.setId(2);
         customer2.setFirstName("zhao王");
@@ -137,6 +135,7 @@ public class RestfulController {
 
     /**
      * 修改对象
+     * <br />全量替换更新
      *
      * @param customer 修改对象
      * @param errors   Errors对象
@@ -158,6 +157,7 @@ public class RestfulController {
 
     /**
      * 修改对象
+     * <br />全量替换更新
      *
      * @param customer 修改对象
      * @param errors   Errors对象
@@ -174,6 +174,45 @@ public class RestfulController {
         }
 
         customer.setFirstName("修改form成功");
+        return customer;
+    }
+
+    /**
+     * 修改对象
+     * <br />部分更新
+     *
+     * @param id     主键
+     * @param params 修改的字段数据
+     * @return 修改后对象
+     */
+    @PatchMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Customer patchEntity(@PathVariable Integer id, @RequestBody Map<String, Object> params) {
+        // 输入参数验证
+        if (!ObjectUtil.exists(id)) {
+            throw new HttpException(HttpStatus.BAD_REQUEST.value(), "参数id不能为空");
+        }
+        if (params == null || params.isEmpty()) {
+            throw new HttpException(HttpStatus.BAD_REQUEST.value(), "修改的字段数据不能为空");
+        }
+
+        // 模拟数据库查询到的数据
+        Customer customer = new Customer();
+        customer.setId(id);
+        customer.setFirstName("zhao王");
+        customer.setLastName("fang dong");
+        // 部分更新
+        Customer patchedCustomer = JacksonUtil.convertValue(params, Customer.class);
+        Class<Customer> CustomerClazz = Customer.class;
+        for (String key : params.keySet()) {
+            try {
+                Field field = CustomerClazz.getDeclaredField(key);
+                field.setAccessible(true);
+                field.set(customer, field.get(patchedCustomer));
+            } catch (NoSuchFieldException | IllegalAccessException ignored) {
+                throw new HttpException(HttpStatus.BAD_REQUEST.value(), "对象修改的字段名(“ + key + ”)不匹配");
+            }
+        }
+
         return customer;
     }
 
