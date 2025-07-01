@@ -2,7 +2,7 @@
  * Copyright (c) 2025. Tobe Wang
  */
 
-package cn.zhaofd.coretestweb.advice;
+package cn.zhaofd.coretestweb.config.advice;
 
 import cn.zhaofd.coretestweb.core.exception.HttpException;
 import org.springframework.http.HttpStatusCode;
