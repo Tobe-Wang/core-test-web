@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2025. Tobe Wang
+  -->
+
+<!-- logback日志配置 -->
 <configuration>
 	<!-- 设置变量 -->
 	<property name="appName" value="core-test-web" />
@@ -15,7 +20,7 @@
 	</appender>
 
 	<!-- 设置包或类最低日志级别(TRACE、DEBUG、INFO、WARN、ERROR、ALL、OFF) -->
-<!--	<logger name="cn.zhaofd.core.base" level="OFF" />-->
+<!--	<logger name="cn.zhaofd.coretestweb" level="OFF" />-->
 
 	<!-- 设置全局默认最低日志级别(TRACE、DEBUG、INFO、WARN、ERROR、ALL、OFF) -->
 	<root level="INFO">
