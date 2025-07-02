@@ -36,7 +36,7 @@ public class PropertyConfig {
 
     /**
      * 属性配置占位符解析器
-     * <br />使用@Value注入，用到Spring EL占位符${...}需配置
+     * <br />使用@Value注入，用到Spring EL表达式占位符${...}需配置
      *
      * @return PropertySourcesPlaceholderConfigurer
      */
