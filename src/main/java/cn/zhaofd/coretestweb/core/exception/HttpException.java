@@ -8,8 +8,14 @@ package cn.zhaofd.coretestweb.core.exception;
  * http自定义异常类
  */
 public class HttpException extends RuntimeException {
-    private final int statusCode; //  http状态码(默认值0)
-    private final String message; // 异常信息
+    /**
+     * http状态码(默认值0)
+     */
+    private final int statusCode;
+    /**
+     * 异常信息
+     */
+    private final String message;
 
     /**
      * 构造方法
