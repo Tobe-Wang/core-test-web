@@ -48,6 +48,21 @@ public class RestfulController {
         return customer;
     }
 
+    @GetMapping(value = "/xml/{id}", produces = MediaType.APPLICATION_XML_VALUE)
+    public Customer getXmlById(@PathVariable Integer id) {
+        // 输入参数验证
+        if (!ObjectUtil.exists(id)) {
+            throw new HttpException(HttpStatus.BAD_REQUEST.value(), "参数id不能为空");
+        }
+
+        Customer customer = new Customer();
+        customer.setId(id);
+        customer.setFirstName("zhao王");
+        customer.setLastName("fang dong");
+        customer.setRegTime(new Date());
+        return customer;
+    }
+
     /**
      * 获取列表
      *
