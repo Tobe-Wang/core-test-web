@@ -28,7 +28,7 @@ public class AsyncConfig implements AsyncConfigurer {
     public AsyncConfig(PropertyConfig propertyConfig) {
         this.propertyConfig = propertyConfig;
     }
-    
+
     @Override
     @NonNull
     public Executor getAsyncExecutor() {
