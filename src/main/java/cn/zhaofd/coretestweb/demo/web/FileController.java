@@ -11,6 +11,7 @@ import cn.zhaofd.coretestweb.core.exception.HttpException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -38,7 +39,7 @@ public class FileController {
      * @param request HttpServletRequest对象
      * @return 状态码
      */
-    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    @RequestMapping(value = "/upload", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
     public String upload(@RequestParam MultipartFile file, HttpServletRequest request) {
         // 输入参数验证
         if (file == null) {
