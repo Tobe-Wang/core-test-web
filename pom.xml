@@ -36,6 +36,12 @@
         </dependency>
         <!-- spring-boot结束 -->
 
+        <!-- Spring Boot默认使用Jackson来处理JSON，引入jackson-dataformat-xml后同时可以使用Jackson的XML扩展来处理XML -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.dataformat</groupId>
+            <artifactId>jackson-dataformat-xml</artifactId>
+            <version>2.19.1</version>
+        </dependency>
         <!-- 开发工具集，提供自动重启、实时刷新和属性默认值等功能 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
