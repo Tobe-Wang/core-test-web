@@ -28,18 +28,18 @@ public class AsyncConfig implements AsyncConfigurer {
     public AsyncConfig(PropertyConfig propertyConfig) {
         this.propertyConfig = propertyConfig;
     }
-
-	@Override
+    
+    @Override
     @NonNull
-	public Executor getAsyncExecutor() {
+    public Executor getAsyncExecutor() {
         // 获取配置文件中的参数
         Integer corePoolSize = ObjectUtil.convert(propertyConfig.getValue("server.thread.corePoolSize"), Integer.class); // 核心线程数
         Integer maxPoolSize = ObjectUtil.convert(propertyConfig.getValue("server.thread.maxPoolSize"), Integer.class); // 最大线程数
         Integer queueCapacity = ObjectUtil.convert(propertyConfig.getValue("server.thread.queueCapacity"), Integer.class); // 线程队列大小
         Integer keepAliveSeconds = ObjectUtil.convert(propertyConfig.getValue("server.thread.keepAliveSeconds"), Integer.class); // 线程最大空闲时间(秒)，超过这个时间就回收该线程
 
-		// 基于线程池的TaskExecutor
-		ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
+        // 基于线程池的TaskExecutor
+        ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
         if (corePoolSize != null) {
             taskExecutor.setCorePoolSize(corePoolSize); // 核心线程数
         }
@@ -52,8 +52,8 @@ public class AsyncConfig implements AsyncConfigurer {
         if (keepAliveSeconds != null) {
             taskExecutor.setKeepAliveSeconds(keepAliveSeconds); // 线程最大空闲时间(秒)，超过这个时间就回收该线程
         }
-		taskExecutor.initialize();
+        taskExecutor.initialize();
 
-		return taskExecutor;
-	}
+        return taskExecutor;
+    }
 }
