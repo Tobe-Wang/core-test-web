@@ -18,6 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 文件上传下载Controller
@@ -35,14 +37,14 @@ public class FileController {
     /**
      * 上传文件
      *
-     * @param file 文件
+     * @param file    文件
      * @param request HttpServletRequest对象
      * @return 状态码
      */
     @RequestMapping(value = "/upload", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
     public String upload(@RequestParam MultipartFile file, HttpServletRequest request) {
         // 输入参数验证
-        if (file == null) {
+        if (file == null || file.isEmpty()) {
             throw new HttpException(HttpStatus.BAD_REQUEST.value(), "文件为空");
         }
 
@@ -56,9 +58,31 @@ public class FileController {
     }
 
     /**
+     * 上传多个文件
+     *
+     * @param files   文件数组
+     * @param request HttpServletRequest对象
+     * @return 状态码
+     */
+    @RequestMapping(value = "/upload/multiple", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+    public List<String> uploadMultiple(@RequestParam MultipartFile[] files, HttpServletRequest request) {
+        // 输入参数验证
+        if (files == null || files.length == 0) {
+            throw new HttpException(HttpStatus.BAD_REQUEST.value(), "文件为空");
+        }
+
+        List<String> listResult = new ArrayList<>();
+        String uploadDirPath = propertyConfig.getValue("server.upload.dirPath");
+        for (MultipartFile file : files) {
+            listResult.add(RestFileUtil.upload(file, uploadDirPath));
+        }
+        return listResult;
+    }
+
+    /**
      * 下载文件
      *
-     * @param serverFileName 服务端文件名
+     * @param serverFileName   服务端文件名
      * @param downloadFileName 下载文件名
      * @return 文件流
      */
