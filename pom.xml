@@ -81,9 +81,24 @@
     </dependencies>
     <build>
         <plugins>
+            <!-- spring-boot开始 -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <!-- spring-boot结束 -->
+
+            <!-- 解决Spring Boot测试中出现的Mockito警告，主要涉及两个问题：动态加载Java代理的弃用警告和JVM类共享的警告 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.5.3</version>
+                <configuration>
+                    <argLine>
+                        -Xshare:off
+                        -javaagent:${settings.localRepository}/net/bytebuddy/byte-buddy-agent/1.17.6/byte-buddy-agent-1.17.6.jar
+                    </argLine>
+                </configuration>
             </plugin>
         </plugins>
     </build>
