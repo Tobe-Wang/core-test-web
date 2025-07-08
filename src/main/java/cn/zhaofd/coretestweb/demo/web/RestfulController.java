@@ -7,6 +7,7 @@ package cn.zhaofd.coretestweb.demo.web;
 import cn.zhaofd.core.base.ObjectUtil;
 import cn.zhaofd.core.json.JacksonUtil;
 import cn.zhaofd.core.spring.validation.ValidationUtil;
+import cn.zhaofd.coretestweb.config.aop.annotation.LogAction;
 import cn.zhaofd.coretestweb.core.exception.HttpException;
 import cn.zhaofd.coretestweb.demo.dto.Customer;
 import jakarta.validation.Valid;
@@ -33,6 +34,7 @@ public class RestfulController {
      * @param id 主键
      * @return Customer
      */
+    @LogAction("获取单个对象")
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Customer getById(@PathVariable Integer id) {
         // 输入参数验证
