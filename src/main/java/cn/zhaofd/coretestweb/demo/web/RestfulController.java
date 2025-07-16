@@ -50,7 +50,14 @@ public class RestfulController {
         return customer;
     }
 
-    @GetMapping(value = "/xml/{id}", produces = MediaType.APPLICATION_XML_VALUE)
+    /**
+     * 获取单个对象
+     * <br />XML格式返回
+     *
+     * @param id 主键
+     * @return Customer
+     */
+    @RequestMapping(value = "/xml/{id}", produces = MediaType.APPLICATION_XML_VALUE, method = RequestMethod.GET)
     public Customer getXmlById(@PathVariable Integer id) {
         // 输入参数验证
         if (!ObjectUtil.exists(id)) {
