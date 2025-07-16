@@ -7,8 +7,8 @@ spring:
   application:
     name: core-test-web # 应用名称
   web:
-    locale: zh_CN # 设置国际化默认语言环境
-    locale-resolver: fixed # 使用固定区域设置
+    locale: zh_CN # 设置国际化默认语言环境(用于spring-boot-starter-validation国际化)
+    locale-resolver: fixed # 使用固定区域设置(用于spring-boot-starter-validation国际化)
   messages:
     encoding: UTF-8 # 设置消息编码
   servlet:
