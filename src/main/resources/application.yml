@@ -10,7 +10,8 @@ spring:
     locale: zh_CN # 设置国际化默认语言环境(用于spring-boot-starter-validation国际化)
     locale-resolver: fixed # 使用固定区域设置(用于spring-boot-starter-validation国际化)
   messages:
-    encoding: UTF-8 # 设置消息编码
+    encoding: UTF-8 # 国际化消息编码
+    basename: messages # 指定国际化文件基础名(自动搜索messages_语言.properties)，默认为messages
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss # 日期格式
     time-zone: Asia/Shanghai  # 日期格式化时区
