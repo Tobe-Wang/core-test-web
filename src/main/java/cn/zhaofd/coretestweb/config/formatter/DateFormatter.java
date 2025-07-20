@@ -4,7 +4,7 @@
 
 package cn.zhaofd.coretestweb.config.formatter;
 
-import cn.zhaofd.core.spring.web.formatter.BaseDateFormatter;
+import cn.zhaofd.core.spring.web.config.formatter.BaseDateFormatter;
 import org.springframework.stereotype.Component;
 
 /**
