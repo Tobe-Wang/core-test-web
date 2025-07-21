@@ -4,7 +4,7 @@
 
 package cn.zhaofd.coretestweb.core.web;
 
-import cn.zhaofd.core.spring.web.web.BaseCommonController;
+import cn.zhaofd.core.spring.web.core.web.BaseCommonController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
