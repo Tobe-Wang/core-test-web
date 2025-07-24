@@ -37,11 +37,6 @@ public class RestfulController {
     @LogAction("获取单个对象")
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Customer getById(@PathVariable Integer id) {
-        // 输入参数验证
-        if (!ObjectUtil.exists(id)) {
-            throw new HttpException(HttpStatus.BAD_REQUEST.value(), "参数id不能为空");
-        }
-
         Customer customer = new Customer();
         customer.setId(id);
         customer.setFirstName("zhao王");
