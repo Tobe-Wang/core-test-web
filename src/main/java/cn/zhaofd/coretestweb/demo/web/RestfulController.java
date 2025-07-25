@@ -216,7 +216,7 @@ public class RestfulController {
                 field.setAccessible(true);
                 field.set(customer, field.get(patchedCustomer));
             } catch (NoSuchFieldException | IllegalAccessException ignored) {
-                throw new HttpException(HttpStatus.BAD_REQUEST.value(), "对象修改的字段名(“ + key + ”)不匹配");
+                throw new HttpException(HttpStatus.BAD_REQUEST.value(), "待修改的属性(" + key + ")与实际对象属性不匹配");
             }
         }
 
