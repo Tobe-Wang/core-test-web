@@ -6,6 +6,11 @@ spring:
     active: dev # 指定活动的profile：dev表示开发环境；prod表示生产环境
   application:
     name: core-test-web # 应用名称
+  autoconfigure:
+    # 排除自动配置
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration,
+      org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration,
+      org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration
   web:
     locale: zh_CN # 设置国际化默认语言环境(用于spring-boot-starter-validation国际化)
     locale-resolver: fixed # 使用固定区域设置(用于spring-boot-starter-validation国际化)
