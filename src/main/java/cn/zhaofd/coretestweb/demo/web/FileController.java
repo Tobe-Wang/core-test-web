@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -68,13 +69,26 @@ public class FileController {
     /**
      * 下载文件
      *
-     * @param serverFileName   服务端文件名
-     * @param downloadFileName 下载文件名
-     * @return 文件流
+     * @param serverFileName   服务端存储的文件名
+     * @param downloadFileName 下载显示的文件名
+     * @return 响应实体
      */
     @GetMapping(value = "/download")
-    public ResponseEntity<byte[]> download(@RequestParam String serverFileName, @RequestParam String downloadFileName) {
+    public ResponseEntity<byte[]> download(@RequestParam String serverFileName, @RequestParam(required = false) String downloadFileName) {
         Path filePath = Paths.get(propertyConfig.getValue("server.upload.dirPath"), serverFileName);
         return RestFileUtil.download(filePath.toAbsolutePath().toString(), downloadFileName);
+    }
+
+    /**
+     * 流式下载文件
+     *
+     * @param serverFileName   服务端存储的文件名
+     * @param downloadFileName 下载显示的文件名
+     * @return 流式响应实体
+     */
+    @GetMapping(value = "/streamDownload", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    public ResponseEntity<StreamingResponseBody> streamDownload(@RequestParam String serverFileName, @RequestParam(required = false) String downloadFileName) {
+        Path filePath = Paths.get(propertyConfig.getValue("server.upload.dirPath"), serverFileName);
+        return RestFileUtil.streamDownload(filePath.toAbsolutePath().toString(), downloadFileName);
     }
 }
