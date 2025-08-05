@@ -24,8 +24,7 @@ import java.util.concurrent.Executor;
 public class AsyncConfig implements AsyncConfigurer {
     private final PropertyConfig propertyConfig;
 
-    @Autowired
-    public AsyncConfig(PropertyConfig propertyConfig) {
+    public AsyncConfig(@Autowired PropertyConfig propertyConfig) {
         this.propertyConfig = propertyConfig;
     }
 

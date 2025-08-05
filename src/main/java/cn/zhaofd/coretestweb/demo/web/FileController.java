@@ -27,8 +27,7 @@ import java.util.List;
 public class FileController {
     private final PropertyConfig propertyConfig;
 
-    @Autowired
-    public FileController(PropertyConfig propertyConfig) {
+    public FileController(@Autowired PropertyConfig propertyConfig) {
         this.propertyConfig = propertyConfig;
     }
 

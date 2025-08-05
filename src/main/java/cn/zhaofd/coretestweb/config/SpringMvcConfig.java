@@ -19,8 +19,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class SpringMvcConfig implements WebMvcConfigurer {
     private final PropertyConfig propertyConfig;
 
-    @Autowired
-    public SpringMvcConfig(PropertyConfig propertyConfig) {
+    public SpringMvcConfig(@Autowired PropertyConfig propertyConfig) {
         this.propertyConfig = propertyConfig;
     }
 

@@ -19,8 +19,7 @@ import org.springframework.core.env.Environment;
 public class PropertyConfig {
     private final Environment environment;
 
-    @Autowired
-    public PropertyConfig(Environment environment) {
+    public PropertyConfig(@Autowired Environment environment) {
         this.environment = environment;
     }
 
