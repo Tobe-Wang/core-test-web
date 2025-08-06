@@ -50,7 +50,7 @@ public class PropertyConfig {
      * 系统自定义公共属性配置
      */
     @Configuration
-    @PropertySource(value = "classpath:property/param.properties", encoding = "UTF-8")
+    @PropertySource(value = "classpath:property/param.properties", encoding = "UTF-8", ignoreResourceNotFound = true)
     public static class ParamConfig {
     }
 
@@ -59,7 +59,7 @@ public class PropertyConfig {
      */
     @Configuration
     @Profile("dev") // 仅当application.yml中spring.profiles.active=dev激活时生效
-    @PropertySource(value = "classpath:property/param-dev.properties", encoding = "UTF-8")
+    @PropertySource(value = "classpath:property/param-dev.properties", encoding = "UTF-8", ignoreResourceNotFound = true)
     public static class ParamDevConfig {
     }
 
@@ -68,7 +68,7 @@ public class PropertyConfig {
      */
     @Configuration
     @Profile("prod") // 仅当application.yml中spring.profiles.active=prod激活时生效
-    @PropertySource(value = "classpath:property/param-prod.properties", encoding = "UTF-8")
+    @PropertySource(value = "classpath:property/param-prod.properties", encoding = "UTF-8", ignoreResourceNotFound = true)
     public static class ParamProdConfig {
     }
 }
