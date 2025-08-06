@@ -5,6 +5,7 @@
 package cn.zhaofd.coretestweb.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -16,6 +17,7 @@ import org.springframework.core.env.Environment;
  * 系统自定义属性配置
  */
 @Configuration
+@EnableConfigurationProperties // 启用属性文件的配置机制，可以将自定义属性配置文件引入到Spring上下文中，使用@Value注入
 public class PropertyConfig {
     private final Environment environment;
 
