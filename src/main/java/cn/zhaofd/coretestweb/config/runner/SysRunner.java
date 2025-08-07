@@ -25,6 +25,6 @@ public class SysRunner implements CommandLineRunner {
      */
     @Override
     public void run(String... args) {
-        logger.info("程序启动后执行的代码");
+        logger.info("程序启动后SysRunner执行的代码");
     }
 }
