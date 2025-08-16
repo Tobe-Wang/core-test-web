@@ -2,7 +2,7 @@
  * Copyright (c) 2025. Tobe Wang
  */
 
-package cn.zhaofd.coretestweb.demo.dto;
+package cn.zhaofd.coretestweb.modules.demo.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;

@@ -2,7 +2,7 @@
  * Copyright (c) 2025. Tobe Wang
  */
 
-package cn.zhaofd.coretestweb.demo.web;
+package cn.zhaofd.coretestweb.modules.demo.web;
 
 import cn.zhaofd.core.spring.web.RestFileUtil;
 import cn.zhaofd.coretestweb.config.PropertyConfig;

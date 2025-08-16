@@ -27,8 +27,8 @@ public class SpringMvcConfig implements WebMvcConfigurer {
      * 拦截器配置
      */
     @Override
-    public void addInterceptors(InterceptorRegistry registry) {// 2
-        registry.addInterceptor(requestInterceptor());
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(requestInterceptor()); // requestInterceptor()，Spring会通过CGLIB代理拦截@Bean方法的调用，确保返回单例Bean
     }
 
     /**

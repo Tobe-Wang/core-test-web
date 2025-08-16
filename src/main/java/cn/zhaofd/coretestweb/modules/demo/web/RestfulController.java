@@ -2,14 +2,14 @@
  * Copyright (c) 2025. Tobe Wang
  */
 
-package cn.zhaofd.coretestweb.demo.web;
+package cn.zhaofd.coretestweb.modules.demo.web;
 
 import cn.zhaofd.core.base.ObjectUtil;
 import cn.zhaofd.core.json.JacksonUtil;
 import cn.zhaofd.core.net.exception.HttpException;
 import cn.zhaofd.core.spring.validation.ValidationUtil;
 import cn.zhaofd.coretestweb.config.aop.annotation.LogAction;
-import cn.zhaofd.coretestweb.demo.dto.Customer;
+import cn.zhaofd.coretestweb.modules.demo.dto.Customer;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
