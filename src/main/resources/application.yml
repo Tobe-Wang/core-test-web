@@ -19,7 +19,7 @@ spring:
     basename: messages # 指定国际化文件基础名(自动搜索messages_语言.properties)，默认为messages
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss # 日期格式
-    time-zone: Asia/Shanghai  # 日期格式化时区
+    time-zone: Asia/Shanghai  # 日期格式化时区(Asia/Shanghai或GMT+8)
     serialization:
       indent-output: true #让控制器输出的json字符串格式更美观
   servlet:
