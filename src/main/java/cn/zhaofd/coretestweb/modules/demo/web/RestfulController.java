@@ -111,7 +111,7 @@ public class RestfulController {
             throw new HttpException(HttpStatus.BAD_REQUEST.value(), "接口参数不能为空");
         }
         if (errors.hasErrors()) {
-            throw new HttpException(HttpStatus.BAD_REQUEST.value(), ValidationUtil.getFieldErrorMsg(errors));
+            throw new HttpException(HttpStatus.BAD_REQUEST.value(), ValidationUtil.getErrorMsg(errors));
         }
 
         customer.setFirstName("保存json成功");
@@ -133,7 +133,7 @@ public class RestfulController {
             throw new HttpException(HttpStatus.BAD_REQUEST.value(), "接口参数不能为空");
         }
         if (errors.hasErrors()) {
-            throw new HttpException(HttpStatus.BAD_REQUEST.value(), ValidationUtil.getFieldErrorMsg(errors));
+            throw new HttpException(HttpStatus.BAD_REQUEST.value(), ValidationUtil.getErrorMsg(errors));
         }
 
         customer.setFirstName("保存form成功");
@@ -155,7 +155,7 @@ public class RestfulController {
             throw new HttpException(HttpStatus.BAD_REQUEST.value(), "接口参数不能为空");
         }
         if (errors.hasErrors()) {
-            throw new HttpException(HttpStatus.BAD_REQUEST.value(), ValidationUtil.getFieldErrorMsg(errors));
+            throw new HttpException(HttpStatus.BAD_REQUEST.value(), ValidationUtil.getErrorMsg(errors));
         }
 
         customer.setFirstName("修改json成功");
@@ -177,7 +177,7 @@ public class RestfulController {
             throw new HttpException(HttpStatus.BAD_REQUEST.value(), "接口参数不能为空");
         }
         if (errors.hasErrors()) {
-            throw new HttpException(HttpStatus.BAD_REQUEST.value(), ValidationUtil.getFieldErrorMsg(errors));
+            throw new HttpException(HttpStatus.BAD_REQUEST.value(), ValidationUtil.getErrorMsg(errors));
         }
 
         customer.setFirstName("修改form成功");
