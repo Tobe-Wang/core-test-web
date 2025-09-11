@@ -18,6 +18,7 @@ import java.time.Instant;
 
 /**
  * RESTFul请求拦截器
+ * <br />另需配置SpringMvcConfig
  */
 public class RequestInterceptor implements HandlerInterceptor {
     private static final Logger logger = LoggerFactory.getLogger(RequestInterceptor.class);

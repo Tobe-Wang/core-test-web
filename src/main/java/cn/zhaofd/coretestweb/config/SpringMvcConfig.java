@@ -28,6 +28,13 @@ public class SpringMvcConfig implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        /*
+        // 注册拦截器到Spring MVC机制，返回一个拦截器注册
+        InterceptorRegistration ir = registry.addInterceptor(requestInterceptor());
+        // 指定拦截匹配模式，限制拦截器拦截请求
+        ir.addPathPatterns("/interceptor/*");
+        */
+
         registry.addInterceptor(requestInterceptor()); // requestInterceptor()，Spring会通过CGLIB代理拦截@Bean方法的调用，确保返回单例Bean
     }
 
