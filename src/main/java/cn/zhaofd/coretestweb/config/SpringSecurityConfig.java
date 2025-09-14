@@ -126,7 +126,7 @@ public class SpringSecurityConfig {
                                 .requestMatchers("/common/**").hasAnyRole("USER", "ADMIN") // hasAnyRoleO方法会默认加入前缀ROLE_
                                 // 限定"/excel/**"下所有请求权限赋予角色ROLE_ADMIN
 //                                .requestMatchers("/excel/**").hasAuthority("ROLE_ADMIN") // hasAuthority()方法不会加入任何前缀
-                                .requestMatchers("/excel/**").access(this.authMgr("ROLE_ADMIN")) // 自定义验证方法
+                                .requestMatchers("/excel/**", "/actuator/**").access(this.authMgr("ROLE_ADMIN")) // 自定义验证方法
                                 // 【对于所有未被前面规则匹配的请求路径】都需要认证
                                 .anyRequest().authenticated()
 //                                // 【对于所有未被前面规则匹配的请求路径】都允许任何人（包括未认证的匿名用户）自由访问，不需要任何权限验证
