@@ -2,18 +2,19 @@
   ~ Copyright (c) 2025. Tobe Wang
   -->
 
-<!-- µÇ³öÒ³Ãæ£¨/templates/logout/page.html£©-->
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!-- ç™»å‡ºé¡µé¢ï¼ˆ/templates/logout/page.htmlï¼‰-->
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=GBK">
-    <title>µÇ³ö</title>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>ç™»å‡º</title>
 </head>
 <body>
-<form action="/logout/page" method="POST"> <!--¢Ù-->
-    <p><input type="submit" value="µÇ³ö"></p>
-    <!-- ·ÀÖ¹CSRF¹¥»÷-->
-    <input type="hidden" th:value="${_csrf.token}"
-           th:name="${_csrf.parameterName}"/><br>
+<form action="/logout/page" method="POST"> <!--â‘ -->
+    <p><input type="submit" value="ç™»å‡º"></p>
+    <!-- é˜²æ­¢CSRFæ”»å‡»-->
+<!--    <input type="hidden" th:value="${_csrf.token}" th:name="${_csrf.parameterName}"/>-->
 </form>
 </body>
 </html>
