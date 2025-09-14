@@ -14,6 +14,7 @@ import org.springframework.security.authorization.AuthorizationDecision;
 import org.springframework.security.authorization.AuthorizationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -121,12 +122,12 @@ public class SpringSecurityConfig {
                 // 1、授权配置
                 .authorizeHttpRequests(auth -> auth
                                 // 允许任何人（包括未认证的匿名用户）自由访问
-                                .requestMatchers("/login/page", "/logout/result").permitAll() // 登录页面允许任意访问
+                                .requestMatchers("/login/page", "/logout/result", "/login/account").permitAll() // 登录页面允许任意访问
                                 // 限定"/file/**"下所有请求赋予角色ROLE_USER或者ROLE_ADMIN
                                 .requestMatchers("/common/**").hasAnyRole("USER", "ADMIN") // hasAnyRoleO方法会默认加入前缀ROLE_
                                 // 限定"/excel/**"下所有请求权限赋予角色ROLE_ADMIN
 //                                .requestMatchers("/excel/**").hasAuthority("ROLE_ADMIN") // hasAuthority()方法不会加入任何前缀
-                                .requestMatchers("/excel/**", "/actuator/**").access(this.authMgr("ROLE_ADMIN")) // 自定义验证方法
+                                .requestMatchers("/excel/**", "/actuator/**").access(this.verifyAuth("ROLE_ADMIN")) // 自定义验证方法
                                 // 【对于所有未被前面规则匹配的请求路径】都需要认证
                                 .anyRequest().authenticated()
 //                                // 【对于所有未被前面规则匹配的请求路径】都允许任何人（包括未认证的匿名用户）自由访问，不需要任何权限验证
@@ -147,14 +148,22 @@ public class SpringSecurityConfig {
                 )
                 // 4、表单登录配置
 //                .formLogin(withDefaults()) // 使用默认表单登录页
-                .formLogin(form -> form.loginPage("/login/page").defaultSuccessUrl("/login/welcome")) // 自定义登录页，表单提交登录地址/login/page
+                .formLogin(form -> form.loginPage("/login/page") // 自定义登录页面url
+                        .loginProcessingUrl("/login/account") // 自定义登录处理地址(表单提交登录地址)，默认为/login/page(与自定义登录页面url相同)
+                        .usernameParameter("username") // 登录表单中用户名输入框的参数名(对应name="username")，默认为username
+                        .passwordParameter("password") // 登录表单中密码输入框的参数名(对应name="password")，默认为password
+                        .defaultSuccessUrl("/login/welcome") // 登录成功后跳转的页面url
+                ) // 自定义登录页
                 // 5、退出登录配置
                 .logout(logout -> logout.logoutUrl("/logout/page").logoutSuccessUrl("/logout/result")) // 自定义登出，post登出地址/logout/page，打开登出页面http://localhost:8080/logout/index
                 // 6、HTTP基础认证配置
 //                .httpBasic(withDefaults()) // 启用HTTP基础认证（HTTP Basic验证是浏览器自动弹出简单的模态对话框的功能）
+                .sessionManagement(sm -> sm.invalidSessionUrl("/logout/result")) // session超时跳转的页面url
                 // 7、 禁用CSRF过滤器验证(默认不配置为启用)
-//                .csrf(csrf -> csrf.disable()) // 防止跨站点请求伪造(基本认证通常禁用CSRF)
-                // 8、创建SecurityFilterChain对象，返回
+                .csrf(AbstractHttpConfigurer::disable) // 防止跨站点请求伪造(基本认证通常禁用CSRF)
+                // 8、CORS跨域配置
+//                .cors(withDefaults())
+                // 9、创建SecurityFilterChain对象，返回
                 .build(); // 直接构建，不再需要and()
     }
 
@@ -187,7 +196,7 @@ public class SpringSecurityConfig {
      * @param roleNames 角色列表
      * @return AuthorizationManager
      */
-    private AuthorizationManager<RequestAuthorizationContext> authMgr(String... roleNames) {
+    private AuthorizationManager<RequestAuthorizationContext> verifyAuth(String... roleNames) {
         // 输入参数验证
         if (roleNames == null || roleNames.length == 0) {
             throw new RuntimeException("角色列表不能为空");
