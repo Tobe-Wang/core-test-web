@@ -49,3 +49,14 @@ server:
       timeout: 30 # 用户会话session过期时间，默认30分钟
   tomcat:
     uri-encoding: UTF-8 # Tomcat的URI编码，默认:UTF-8
+
+# Actuator监控端点(/health/**需Spring Security等方式安全控制)
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health" # 暴露的端点(可以使用通配符*)，默认health
+#        exclude: "shutdown,env" # 不暴露的端点
+  endpoint:
+    health:
+      show-details: when_authorized
